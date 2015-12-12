@@ -42,13 +42,13 @@
     interrupts(); \
     SoftPWM.update(); \
   }
-#else
+#else  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 #define SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, BRIGHTNESS_LEVELS) \
   CSoftPWM<CHANNEL_CNT, BRIGHTNESS_LEVELS> SoftPWM; \
   ISR(TIMER1_COMPA_vect) { \
     interrupts(); SoftPWM.update(); \
   }
-#endif
+#endif  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 
 #define SOFTPWM_DEFINE_OBJECT(CHANNEL_CNT) \
   SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, 0)
@@ -73,9 +73,9 @@ struct bitWriteStaticExpander {
   void operator() (uint8_t const &count, uint8_t const * const &channels) const {
 #ifdef SOFTPWM_OUTPUT_DELAY
     bitWriteStatic<channel>((count + channel) < channels[channel]);
-#else
+#else  //SOFTPWM_OUTPUT_DELAY
     bitWriteStatic<channel>(count < channels[channel]);
-#endif
+#endif  //SOFTPWM_OUTPUT_DELAY
     bitWriteStaticExpander < channel - 1 > ()(count, channels);
   }
 };
