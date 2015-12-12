@@ -1,6 +1,6 @@
 // arduino-softpwm software PWM library for Arduino: https://github.com/per1234/arduino-softpwm
-#ifndef _SOFTPWM_H_
-#define _SOFTPWM_H_
+#ifndef SoftPWM_h
+#define SoftPWM_h
 
 #include <Arduino.h>
 // uncomment the following line to add a 1 PWM clock cycle delay between outputs to prevent large in-rush currents
@@ -204,5 +204,4 @@ class CSoftPWM {
     uint8_t _count;
 };
 
-#endif
-
+#endif  //SoftPWM_h
