@@ -1,3 +1,4 @@
+// arduino-softpwm software PWM library for Arduino: https://github.com/per1234/arduino-softpwm
 #ifndef _SOFTPWM_H_
 #define _SOFTPWM_H_
 
