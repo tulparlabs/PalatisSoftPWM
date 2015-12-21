@@ -1,4 +1,4 @@
-#include <SoftPWM.h>
+#include <PalatisSoftPWM.h>
 
 /* pins_arduino.h defines the pin-port/bit mapping as PROGMEM so
    you have to read them with pgm_read_xxx(). That's generally okay

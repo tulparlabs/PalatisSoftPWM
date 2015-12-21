@@ -1,4 +1,4 @@
-arduino-softpwm
+PalatisSoftPWM
 ===============
 
 Software PWM library for Arduino
@@ -10,7 +10,7 @@ This is a fork of https://github.com/Palatis/arduino-softpwm
 
 <a id="installation"></a>
 #### Installation
-- Download the most recent version here: https://github.com/per1234/arduino-softpwm/archive/dev.zip
+- Download the most recent version here: https://github.com/per1234/PalatisSoftPWM/archive/dev.zip
 - Using Arduino IDE 1.0.x:
   - Sketch > Import Library... > Add Library... > select the downloaded file > Open
 - Using Arduino IDE 1.5+:
@@ -19,9 +19,9 @@ This is a fork of https://github.com/Palatis/arduino-softpwm
 
 <a id="usage"></a>
 #### Usage
-See **File > Examples > arduino-softpwm > SoftPWM_example** for demonstration of library usage.
+See **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example** for demonstration of library usage.
 
-`#define SOFTPWM_OUTPUT_DELAY` - Add this line above `#include <SoftPWM.h>` for a 1 PWM clock cycle delay between outputs to prevent large in-rush currents.
+`#define SOFTPWM_OUTPUT_DELAY` - Add this line above `#include <PalatisSoftPWM.h>` for a 1 PWM clock cycle delay between outputs to prevent large in-rush currents.
 
 `SOFTPWM_DEFINE_CHANNEL(CHANNEL, PMODE, PORT, BIT)` - Configure a pin for software PWM use. Consult the datasheet for your microcontroller for the appropriate `PORT` and `BIT` values for the physical pin. This information is shown in the pinout diagram, for example: [ATmega328P datasheet](http://www.atmel.com/Images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Summary.pdf) **Figure 1-1** found on page 3. If you want to determine the Arduino pin assigned to the physical pin http://www.pighixxx.com/test/pinoutspg/boards/ provides this information for the most popular Arduino boards or you can look at the pins_arduino.h file in the **variant** folder used by your board.
 - Parameter: **CHANNEL** - The channel number is used as an ID for the pin.

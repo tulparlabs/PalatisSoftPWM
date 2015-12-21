@@ -1,6 +1,6 @@
-// arduino-softpwm software PWM library for Arduino: https://github.com/per1234/arduino-softpwm
-#ifndef SoftPWM_h
-#define SoftPWM_h
+// PalatisSoftPWM - software PWM library for Arduino: https://github.com/per1234/PalatisSoftPWM
+#ifndef PalatisSoftPWM_h
+#define PalatisSoftPWM_h
 
 #include <Arduino.h>
 
@@ -199,4 +199,4 @@ class CSoftPWM {
     uint8_t _count;
 };
 
-#endif  //SoftPWM_h
+#endif  //PalatisSoftPWM_h
