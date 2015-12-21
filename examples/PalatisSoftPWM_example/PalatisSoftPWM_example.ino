@@ -69,11 +69,6 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
    pwm frequencies. */
 SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
 
-/* If you want to use the SoftPWM object outside where it's defined,
-   add the following line to the file. */
-//SOFTPWM_DEFINE_EXTERN_OBJECT(16);
-SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
-
 void setup() {
   Serial.begin(19200);
 
