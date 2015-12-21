@@ -80,8 +80,6 @@ void setup() {
 }
 
 void loop() {
-  long nextMillis = 0;
-
   for (uint8_t i = 0; i < SoftPWM.size(); ++i) {
     Serial.print(micros());
     Serial.print(" loop(): ");
