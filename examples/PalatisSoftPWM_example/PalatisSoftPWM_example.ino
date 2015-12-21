@@ -76,11 +76,6 @@ SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
 const unsigned int fadeDuration = 1000;  // (ms)The length of time for each channel to go from PWM value 0 to the highest level and back to 0 again. The maximum allowed value is 8388.
 
 void setup() {
-  Serial.begin(9600);
-
-
-  // print interrupt load for diagnostic purposes
-  SoftPWM.printInterruptLoad();
   SoftPWM.begin(60);  // begin with 60hz PWM frequency
 }
 
