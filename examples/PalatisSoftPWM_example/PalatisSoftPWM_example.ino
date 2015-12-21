@@ -85,16 +85,12 @@ void loop() {
     Serial.print(" loop(): ");
     Serial.println(i);
 
-    unsigned long const WAIT = 1000000 / SoftPWM.brightnessLevels() / 2;
-    unsigned long nextMicros = 0;
     for (byte v = 0; v < SoftPWM.brightnessLevels() - 1; ++v) {
-      while (micros() < nextMicros);
-      nextMicros = micros() + WAIT;
+      delayMicroseconds(1000000 / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(i, v);
     }
     for (int v = SoftPWM.brightnessLevels() - 1; v >= 0; --v) {
-      while (micros() < nextMicros);
-      nextMicros = micros() + WAIT;
+      delayMicroseconds(1000000 / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(i, v);
     }
   }
