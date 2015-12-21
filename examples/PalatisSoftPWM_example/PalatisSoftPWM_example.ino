@@ -82,14 +82,14 @@ void setup() {
 }
 
 void loop() {
-  for (uint8_t i = 0; i < SoftPWM.size(); ++i) {
-    for (byte v = 0; v < SoftPWM.brightnessLevels() - 1; ++v) {
+  for (uint8_t channel = 0; channel < SoftPWM.size(); ++channel) {
+    for (byte value = 0; value < SoftPWM.brightnessLevels() - 1; ++value) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
-      SoftPWM.set(i, v);
+      SoftPWM.set(channel, value);
     }
-    for (int v = SoftPWM.brightnessLevels() - 1; v >= 0; --v) {
+    for (int value = SoftPWM.brightnessLevels() - 1; value >= 0; --value) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
-      SoftPWM.set(i, v);
+      SoftPWM.set(channel, value);
     }
   }
 }
