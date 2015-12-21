@@ -79,7 +79,6 @@ void setup() {
   SoftPWM.printInterruptLoad();
 }
 
-static volatile uint8_t v = 0;
 void loop() {
   long nextMillis = 0;
 
