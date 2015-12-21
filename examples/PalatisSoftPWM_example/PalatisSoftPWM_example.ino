@@ -70,7 +70,7 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
 SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
 
 void setup() {
-  Serial.begin(19200);
+  Serial.begin(9600);
 
   // begin with 60hz pwm frequency
   SoftPWM.begin(60);
