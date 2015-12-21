@@ -1,3 +1,7 @@
+/* Demonstrates usage of the PalatisSoftPWM library.
+   Fades each channel from PWM value 0 to the highest level and back to 0 again.
+*/
+
 #include <PalatisSoftPWM.h>
 
 /* pins_arduino.h defines the pin-port/bit mapping as PROGMEM so
@@ -14,8 +18,8 @@
    The following example demonstrates setting channels for all pins
    on the ATmega328P or ATmega168 used on Arduino Uno, Pro Mini,
    Nano and other boards. */
-SOFTPWM_DEFINE_CHANNEL(0, DDRD, PORTD, PORTD0);  //Arduino pin 0
-SOFTPWM_DEFINE_CHANNEL(1, DDRD, PORTD, PORTD1);  //Arduino pin 1
+SOFTPWM_DEFINE_CHANNEL(0, DDRD, PORTD, PORTD0);  //Arduino pin 0 - this pin is used for Serial so you will be unable to use Serial in your sketch if you use it for PWM
+SOFTPWM_DEFINE_CHANNEL(1, DDRD, PORTD, PORTD1);  //Arduino pin 1 - this pin is used for Serial so you will be unable to use Serial in your sketch if you use it for PWM
 SOFTPWM_DEFINE_CHANNEL(2, DDRD, PORTD, PORTD2);  //Arduino pin 2
 SOFTPWM_DEFINE_CHANNEL(3, DDRD, PORTD, PORTD3);  //Arduino pin 3
 SOFTPWM_DEFINE_CHANNEL(4, DDRD, PORTD, PORTD4);  //Arduino pin 4
@@ -38,8 +42,8 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
 
 /* Or you may want inverted outputs: */
 /*
-  SOFTPWM_DEFINE_CHANNEL_INVERT(0, DDRD, PORTD, PORTD0);  //Arduino pin 0
-  SOFTPWM_DEFINE_CHANNEL_INVERT(1, DDRD, PORTD, PORTD1);  //Arduino pin 1
+  SOFTPWM_DEFINE_CHANNEL_INVERT(0, DDRD, PORTD, PORTD0);  //Arduino pin 0 - this pin is used for Serial so you will be unable to use Serial in your sketch if you use it for PWM
+  SOFTPWM_DEFINE_CHANNEL_INVERT(1, DDRD, PORTD, PORTD1);  //Arduino pin 1 - this pin is used for Serial so you will be unable to use Serial in your sketch if you use it for PWM
   SOFTPWM_DEFINE_CHANNEL_INVERT(2, DDRD, PORTD, PORTD2);  //Arduino pin 2
   SOFTPWM_DEFINE_CHANNEL_INVERT(3, DDRD, PORTD, PORTD3);  //Arduino pin 3
   SOFTPWM_DEFINE_CHANNEL_INVERT(4, DDRD, PORTD, PORTD4);  //Arduino pin 4
@@ -74,19 +78,20 @@ const unsigned int fadeDuration = 1000;  // (ms)The length of time for each chan
 void setup() {
   Serial.begin(9600);
 
-  // begin with 60hz pwm frequency
-  SoftPWM.begin(60);
 
   // print interrupt load for diagnostic purposes
   SoftPWM.printInterruptLoad();
+  SoftPWM.begin(60);  // begin with 60hz PWM frequency
 }
 
 void loop() {
-  for (uint8_t channel = 0; channel < SoftPWM.size(); ++channel) {
+  for (uint8_t channel = 0; channel < SoftPWM.size(); ++channel) {  // cycle through the channels
+    // fade from PWM value 0 to the highest value
     for (byte value = 0; value < SoftPWM.brightnessLevels() - 1; ++value) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(channel, value);
     }
+    // fade back to PWM value 0
     for (int value = SoftPWM.brightnessLevels() - 1; value >= 0; --value) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(channel, value);
