@@ -9,10 +9,12 @@
   template <> \
   inline void pinModeStatic<CHANNEL>(uint8_t const mode) { \
     if (mode == INPUT) { \
-      bitClear(PMODE, BIT); bitClear(PORT, BIT); \
+      bitClear(PMODE, BIT); \
+      bitClear(PORT, BIT); \
     } \
     else if (mode == INPUT_PULLUP) { \
-      bitClear(PMODE, BIT); bitSet(PORT, BIT); \
+      bitClear(PMODE, BIT); \
+      bitSet(PORT, BIT); \
     } \
     else { \
       bitSet(PMODE, BIT); \
@@ -44,7 +46,8 @@
 #define SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, BRIGHTNESS_LEVELS) \
   CSoftPWM<CHANNEL_CNT, BRIGHTNESS_LEVELS> SoftPWM; \
   ISR(TIMER1_COMPA_vect) { \
-    interrupts(); SoftPWM.update(); \
+    interrupts(); \
+    SoftPWM.update(); \
   }
 #endif  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 
@@ -137,8 +140,9 @@ class CSoftPWM {
       asm volatile ("/********** CSoftPWM::allOff() begin **********/");
       const uint8_t oldSREG = SREG;
       noInterrupts();
-      for (int i = 0; i < num_channels; ++i)
+      for (int i = 0; i < num_channels; ++i) {
         _channels[i] = 0;
+      }
       bitWriteStaticExpander < num_channels - 1 > ()(false);
       SREG = oldSREG;
       asm volatile ("/********** CSoftPWM::allOff() end **********/");
@@ -151,8 +155,9 @@ class CSoftPWM {
       const uint8_t count = _count;
       bitWriteStaticExpander < num_channels - 1 > ()(count, _channels);
       ++_count;
-      if (_count == brightnessLevels())
+      if (_count == brightnessLevels()) {
         _count = 0;
+      }
       asm volatile ("/********** CSoftPWM::update() end **********/");
     }
 
