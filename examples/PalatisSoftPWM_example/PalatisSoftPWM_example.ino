@@ -69,6 +69,8 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
    pwm frequencies. */
 SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
 
+const unsigned int fadeDuration = 1000;  // (ms)The length of time for each channel to go from PWM value 0 to the highest level and back to 0 again. The maximum allowed value is 8388.
+
 void setup() {
   Serial.begin(9600);
 
@@ -82,11 +84,11 @@ void setup() {
 void loop() {
   for (uint8_t i = 0; i < SoftPWM.size(); ++i) {
     for (byte v = 0; v < SoftPWM.brightnessLevels() - 1; ++v) {
-      delayMicroseconds(1000000 / SoftPWM.brightnessLevels() / 2);
+      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(i, v);
     }
     for (int v = SoftPWM.brightnessLevels() - 1; v >= 0; --v) {
-      delayMicroseconds(1000000 / SoftPWM.brightnessLevels() / 2);
+      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(i, v);
     }
   }
