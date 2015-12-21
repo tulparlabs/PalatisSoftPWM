@@ -81,10 +81,6 @@ void setup() {
 
 void loop() {
   for (uint8_t i = 0; i < SoftPWM.size(); ++i) {
-    Serial.print(micros());
-    Serial.print(" loop(): ");
-    Serial.println(i);
-
     for (byte v = 0; v < SoftPWM.brightnessLevels() - 1; ++v) {
       delayMicroseconds(1000000 / SoftPWM.brightnessLevels() / 2);
       SoftPWM.set(i, v);
