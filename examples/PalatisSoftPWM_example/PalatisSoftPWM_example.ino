@@ -80,7 +80,7 @@ void setup() {
 }
 
 void loop() {
-  for (uint8_t channel = 0; channel < SoftPWM.size(); ++channel) {  // cycle through the channels
+  for (byte channel = 0; channel < SoftPWM.size(); ++channel) {  // cycle through the channels
     // fade from PWM value 0 to the highest value
     for (byte value = 0; value < SoftPWM.brightnessLevels() - 1; ++value) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
