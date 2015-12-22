@@ -36,15 +36,15 @@
   SOFTPWM_DEFINE_PINMODE(CHANNEL, PMODE, PORT, BIT)
 
 #if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-#define SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, BRIGHTNESS_LEVELS) \
-  CSoftPWM<CHANNEL_CNT, BRIGHTNESS_LEVELS> SoftPWM; \
+#define SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
+  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM; \
   ISR(TIM1_COMPA_vect) { \
     interrupts(); \
     SoftPWM.update(); \
   }
 #else  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-#define SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, BRIGHTNESS_LEVELS) \
-  CSoftPWM<CHANNEL_CNT, BRIGHTNESS_LEVELS> SoftPWM; \
+#define SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
+  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM; \
   ISR(TIMER1_COMPA_vect) { \
     interrupts(); \
     SoftPWM.update(); \
@@ -52,13 +52,13 @@
 #endif  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 
 #define SOFTPWM_DEFINE_OBJECT(CHANNEL_CNT) \
-  SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, 0)
+  SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, 0)
 
-#define SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, BRIGHTNESS_LEVELS) \
-  extern CSoftPWM<CHANNEL_CNT, BRIGHTNESS_LEVELS> SoftPWM;
+#define SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
+  extern CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM;
 
 #define SOFTPWM_DEFINE_EXTERN_OBJECT(CHANNEL_CNT) \
-  SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_BRIGHTNESS_LEVELS(CHANNEL_CNT, 0)
+  SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, 0)
 
 // here comes the magic @o@
 template <int channel> inline void bitWriteStatic(bool value) {}
@@ -101,7 +101,7 @@ struct pinModeStaticExpander < -1 > {
   void operator() (uint8_t const mode) const {}
 };
 
-template <int num_channels, int num_brightness_levels>
+template <int num_channels, int num_PWM_levels>
 class CSoftPWM {
   public:
     void begin(const long hertz) {
@@ -117,7 +117,7 @@ class CSoftPWM {
       asm volatile ("/************ timer setup begin ************/");
       TCCR1A = 0b00000000;
       TCCR1B = 0b00001001;
-      OCR1A = (F_CPU - hertz * brightnessLevels() / 2) / (hertz * brightnessLevels());
+      OCR1A = (F_CPU - hertz * PWMlevels() / 2) / (hertz * PWMlevels());
       bitSet(TIMSK1, OCIE1A);
       asm volatile ("/************ timer setup end ************/");
 
@@ -132,8 +132,8 @@ class CSoftPWM {
       return num_channels;
     }
 
-    unsigned int brightnessLevels() const {
-      return num_brightness_levels ? num_brightness_levels : 256;
+    unsigned int PWMlevels() const {
+      return num_PWM_levels ? num_PWM_levels : 256;
     }
 
     void allOff() {
@@ -155,7 +155,7 @@ class CSoftPWM {
       const uint8_t count = _count;
       bitWriteStaticExpander < num_channels - 1 > ()(count, _channels);
       ++_count;
-      if (_count == brightnessLevels()) {
+      if (_count == PWMlevels()) {
         _count = 0;
       }
       asm volatile ("/********** CSoftPWM::update() end **********/");
@@ -189,10 +189,10 @@ class CSoftPWM {
       Serial.print(interrupt_frequency);
       Serial.println(F(" Hz"));
       Serial.print(F("  PWM frequency: "));
-      Serial.print(interrupt_frequency / brightnessLevels());
+      Serial.print(interrupt_frequency / PWMlevels());
       Serial.println(F(" Hz"));
-      Serial.print(F("  Brightness levels: "));
-      Serial.println(brightnessLevels());
+      Serial.print(F("  PWM levels: "));
+      Serial.println(PWMlevels());
 
       bitSet(TIMSK1, OCIE1A);  // enable interrupt again
     }

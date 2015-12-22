@@ -65,13 +65,13 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
 */
 
 /* Here you make an instance of desired channel counts you want
-   with the default 256 brightness levels (0 ~ 255). */
+   with the default 256 PWM levels (0 ~ 255). */
 //SOFTPWM_DEFINE_OBJECT(20);
 
-/* Or you can make one with only 100 brightness levels (0 ~ 99).
-   By using less brightness levels, you may be able to use higher
+/* Or you can make one with only 100 PWM levels (0 ~ 99).
+   By using less PWM levels, you may be able to use higher
    pwm frequencies. */
-SOFTPWM_DEFINE_OBJECT_WITH_BRIGHTNESS_LEVELS(20, 100);
+SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(20, 100);
 
 const unsigned int fadeDuration = 1000;  // (ms)The length of time for each channel to go from PWM value 0 to the highest level and back to 0 again. The maximum allowed value is 8388.
 
@@ -82,13 +82,13 @@ void setup() {
 void loop() {
   for (byte channel = 0; channel < SoftPWM.size(); ++channel) {  // cycle through the channels
     // fade from PWM value 0 to the highest value
-    for (byte value = 0; value < SoftPWM.brightnessLevels() - 1; ++value) {
-      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
+    for (byte value = 0; value < SoftPWM.PWMlevels() - 1; ++value) {
+      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
       SoftPWM.set(channel, value);
     }
     // fade back to PWM value 0
-    for (int value = SoftPWM.brightnessLevels() - 1; value >= 0; --value) {
-      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.brightnessLevels() / 2);
+    for (int value = SoftPWM.PWMlevels() - 1; value >= 0; --value) {
+      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
       SoftPWM.set(channel, value);
     }
   }
