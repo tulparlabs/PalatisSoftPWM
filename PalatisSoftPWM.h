@@ -4,6 +4,10 @@
 
 #include <Arduino.h>
 
+#ifndef ARDUINO_ARCH_AVR
+#error Architecture not supported. PalatisSoftPWM currently only supports AVR microcontrollers.
+#endif
+
 // helper macros
 #define SOFTPWM_DEFINE_PINMODE(CHANNEL, PMODE, PORT, BIT) \
   template <> \
