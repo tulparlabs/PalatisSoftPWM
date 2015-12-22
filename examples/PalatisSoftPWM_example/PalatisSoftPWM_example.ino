@@ -66,12 +66,7 @@ SOFTPWM_DEFINE_CHANNEL(19, DDRC, PORTC, PORTC5);  //Arduino pin A5
 
 /* Here you make an instance of desired channel counts you want
    with the default 256 PWM levels (0 ~ 255). */
-//SOFTPWM_DEFINE_OBJECT(20);
-
-/* Or you can make one with only 100 PWM levels (0 ~ 99).
-   By using less PWM levels, you may be able to use higher
-   pwm frequencies. */
-SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(20, 100);
+SOFTPWM_DEFINE_OBJECT(20);
 
 const unsigned int fadeDuration = 1000;  // (ms)The length of time for each channel to go from PWM value 0 to the highest level and back to 0 again. The maximum allowed value is 8388.
 
