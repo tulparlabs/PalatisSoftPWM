@@ -75,14 +75,14 @@ void setup() {
 }
 
 void loop() {
-  for (byte channel = 0; channel < SoftPWM.size(); ++channel) {  // cycle through the channels
+  for (byte channel = 0; channel < SoftPWM.size(); channel++) {  // cycle through the channels
     // fade from PWM value 0 to the highest value
-    for (byte value = 0; value < SoftPWM.PWMlevels() - 1; ++value) {
+    for (byte value = 0; value < SoftPWM.PWMlevels() - 1; value++) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
       SoftPWM.set(channel, value);
     }
     // fade back to PWM value 0
-    for (int value = SoftPWM.PWMlevels() - 1; value >= 0; --value) {
+    for (int value = SoftPWM.PWMlevels() - 1; value >= 0; value--) {
       delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
       SoftPWM.set(channel, value);
     }
