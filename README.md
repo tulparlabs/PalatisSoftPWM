@@ -8,6 +8,7 @@ AVR microcontrollers provide hardware PWM on some pins but if you need PWM on ot
 
 #### Differences from the original library
 This is a fork of the excellent https://github.com/Palatis/arduino-softpwm. It is intended to be easier to use while still maintaining the level of efficiency and flexibility achieved by the original author.
+- Easy configuration: Arduino pin numbers for the most popular microcontrollers on any board that uses a standard pinout can now be used to configure PWM channels in addition to the previous PORT/BIT configuration system.
 - Documentation: Installation, Usage, and Troubleshooting.
 - Simplified example: Usage is now fully documented so the example can demonstrate the library without being overly confusing.
 - Optional output delay. This feature of the original library may be useful for some applications but can also have undesirable effect so I allow the user to decide whether to use it.
@@ -24,11 +25,17 @@ This is a fork of the excellent https://github.com/Palatis/arduino-softpwm. It i
 
 <a id="usage"></a>
 #### Usage
-See **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example** for demonstration of library usage.
+See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
 
 `#define SOFTPWM_OUTPUT_DELAY` - Add this line above `#include <PalatisSoftPWM.h>` for a 1 PWM clock cycle delay between outputs to prevent large in-rush currents.
 
-`SOFTPWM_DEFINE_CHANNEL(CHANNEL, PMODE, PORT, BIT)` - Configure a pin for software PWM use. Consult the datasheet for your microcontroller for the appropriate `PORT` and `BIT` values for the physical pin. This information is shown in the pinout diagram, for example: [ATmega328P datasheet](http://www.atmel.com/Images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Summary.pdf) **Figure 1-1** found on page 3. If you want to determine the Arduino pin assigned to the physical pin http://www.pighixxx.com/test/pinoutspg/boards/ provides this information for the most popular Arduino boards or you can look at the pins_arduino.h file in the **variant** folder used by your board.
+`SOFTPWM_DEFINE_PINn_CHANNEL(CHANNEL)` - Configure Arduino pin n for software PWM use. This supports boards that use ATmega328P, ATmega168, ATmega32U4, ATmega2560, ATtiny85, ATmega1284P and related microcontrollers. For other microcontrollers use `SOFTPWM_DEFINE_CHANNEL()` instead. PalatisSoftPWM will try to detect which of the several standard ATmega1284P pinouts is being used and will default to the [Mighty 1284P standard variant](https://github.com/JChristensen/mighty-1284p/blob/v1.6.3/avr/variants/standard/pins_arduino.h) if it can't be detected.
+- Parameter: **CHANNEL** - The channel number is used as an ID for the pin.
+
+`SOFTPWM_DEFINE_PINn_CHANNEL_INVERT(CHANNEL)` - Depending on your application you may prefer to invert the output.
+- Parameter: **CHANNEL** - The channel number is used as an ID for the pin.
+
+`SOFTPWM_DEFINE_CHANNEL(CHANNEL, PMODE, PORT, BIT)` - Configure a pin for software PWM use. Consult the datasheet for your microcontroller for the appropriate `PORT` and `BIT` values for the physical pin. This information is shown in the pinout diagram, for example: [ATmega328P datasheet](http://www.atmel.com/Images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Summary.pdf) **Figure 1-1** found on page 3. If you want to determine the Arduino pin assigned to the physical pin http://www.pighixxx.com/test/pinoutspg/boards/ provides this information for the most popular Arduino boards or you can look at the pins_arduino.h file in the **variant** folder used by your board. Usage is demonstrated in **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example2**.
 - Parameter: **CHANNEL** - The channel number is used as an ID for the pin.
 - Parameter: **PMODE** - DDRx register of the pin's port. Append the port letter to `DDR`. For example: The [Arduino UNO diagram](http://www.pighixxx.com/test/portfolio-items/uno/?portfolioID=314) shows that Arduino pin 13 is **PB5** which means that the port is **B** so you should use the value `DDRB` for that pin.
 - Parameter: **PORT** - The port of the pin. For example: Arduino pin 13 is **PB5** so you should use the value `PORTB` for that pin.
@@ -78,4 +85,6 @@ See **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example** for demonstrat
   - The interrupt load is too high. Use `PalatisSoftPWM.printInterruptLoad()` to determine the interrupt load. You can decrease the interrupt load by setting less PWM levels with `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` or `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS()` or setting the PWM frequency lower in `PalatisSoftPWM.begin()`.
 - LED brightness changes between low brightness PWM values are larger than at brighter PWM values.
   - This is caused by the way LEDs work and is not caused by a problem with the library. If possible, use more PWM levels or never allow the LED to get dimmer than the level below which the difference between PWM levels is too distinct.
+- `error: expected constructor, destructor, or type conversion before '(' token` compile error  when using `SOFTPWM_DEFINE_PINn_CHANNEL()` or `SOFTPWM_DEFINE_PINn_CHANNEL_INVERT()`.
+  - The Arduino pins for the microcontroller model you're using are not defined. Use `SOFTPWM_DEFINE_CHANNEL()` or `SOFTPWM_DEFINE_CHANNEL_INVERT()` instead.
 
