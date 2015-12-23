@@ -182,13 +182,12 @@ class CSoftPWM {
 
       const double load = static_cast<double>(time1 - time2) / time1;
       const double interrupt_frequency = static_cast<double>(F_CPU) / (OCR1A + 1);
-      const double cycles_per_interrupt = load * F_CPU / interrupt_frequency;
 
       Serial.println(F("SoftPWM::printInterruptLoad():"));
       Serial.print(F("  Load of interrupt: "));
       Serial.println(load, 10);
       Serial.print(F("  Clock cycles per interrupt: "));
-      Serial.println( cycles_per_interrupt );
+      Serial.println(load * F_CPU / interrupt_frequency);
       Serial.print(F("  Interrupt frequency: "));
       Serial.print(interrupt_frequency);
       Serial.println(F(" Hz"));
