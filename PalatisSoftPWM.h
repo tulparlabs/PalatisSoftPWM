@@ -144,7 +144,7 @@ class CSoftPWM {
       asm volatile ("/********** CSoftPWM::allOff() begin **********/");
       const uint8_t oldSREG = SREG;
       noInterrupts();
-      for (int i = 0; i < num_channels; ++i) {
+      for (int i = 0; i < num_channels; i++) {
         _channels[i] = 0;
       }
       bitWriteStaticExpander < num_channels - 1 > ()(false);
@@ -158,7 +158,7 @@ class CSoftPWM {
       asm volatile ("/********** CSoftPWM::update() begin **********/");
       const uint8_t count = _count;
       bitWriteStaticExpander < num_channels - 1 > ()(count, _channels);
-      ++_count;
+      _count++;
       if (_count == PWMlevels()) {
         _count = 0;
       }
