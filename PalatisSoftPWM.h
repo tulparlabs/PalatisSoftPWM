@@ -11,7 +11,7 @@
 // helper macros
 #define SOFTPWM_DEFINE_PINMODE(CHANNEL, PMODE, PORT, BIT) \
   template <> \
-  inline void pinModeStatic<CHANNEL>(uint8_t const mode) { \
+  inline void pinModeStatic<CHANNEL>(const uint8_t mode) { \
     if (mode == INPUT) { \
       bitClear(PMODE, BIT); \
       bitClear(PORT, BIT); \
@@ -27,14 +27,14 @@
 
 #define SOFTPWM_DEFINE_CHANNEL(CHANNEL, PMODE, PORT, BIT) \
   template <> \
-  inline void bitWriteStatic<CHANNEL>(bool const value) { \
+  inline void bitWriteStatic<CHANNEL>(const bool value) { \
     bitWrite( PORT, BIT, value ); \
   } \
   SOFTPWM_DEFINE_PINMODE( CHANNEL, PMODE, PORT, BIT )
 
 #define SOFTPWM_DEFINE_CHANNEL_INVERT( CHANNEL, PMODE, PORT, BIT ) \
   template <> \
-  inline void bitWriteStatic<CHANNEL>(bool const value) { \
+  inline void bitWriteStatic<CHANNEL>(const bool value) { \
     bitWrite(PORT, BIT, !value); \
   } \
   SOFTPWM_DEFINE_PINMODE(CHANNEL, PMODE, PORT, BIT)
@@ -75,7 +75,7 @@ struct bitWriteStaticExpander {
     bitWriteStaticExpander < channel - 1 > ()(value);
   }
 
-  void operator() (uint8_t const &count, uint8_t const * const &channels) const {
+  void operator() (const uint8_t &count, const uint8_t * const &channels) const {
 #ifdef SOFTPWM_OUTPUT_DELAY
     bitWriteStatic<channel>((count + channel) < channels[channel]);
 #else  //SOFTPWM_OUTPUT_DELAY
@@ -88,12 +88,12 @@ struct bitWriteStaticExpander {
 template <>
 struct bitWriteStaticExpander < -1 > {
   void operator() (bool) const {}
-  void operator() (uint8_t const &, uint8_t const * const &) const {}
+  void operator() (const uint8_t &, const uint8_t* const &) const {}
 };
 
 template <int channel>
 struct pinModeStaticExpander {
-  void operator() (uint8_t const mode) const
+  void operator() (const uint8_t mode) const
   {
     pinModeStatic<channel>(mode);
     pinModeStaticExpander < channel - 1 > ()(mode);
@@ -102,7 +102,7 @@ struct pinModeStaticExpander {
 
 template <>
 struct pinModeStaticExpander < -1 > {
-  void operator() (uint8_t const mode) const {}
+  void operator() (const uint8_t mode) const {}
 };
 
 template <unsigned int num_channels, unsigned int num_PWM_levels>
