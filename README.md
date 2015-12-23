@@ -5,7 +5,12 @@ Software PWM library for Arduino
 
 AVR microcontrollers provide hardware PWM on some pins but if you need PWM on other pins then it must be implemented in software. This library provides easy and efficient software PWM on any pin. Each channel can be set to a different PWM duty cycle.
 
-This is a fork of https://github.com/Palatis/arduino-softpwm
+
+#### Differences from the original library
+This is a fork of the excellent https://github.com/Palatis/arduino-softpwm. It is intended to be easier to use while still maintaining the level of efficiency and flexibility achieved by the original author.
+- Documentation: Installation, Usage, and Troubleshooting.
+- Simplified example: Usage is now fully documented so the example can demonstrate the library without being overly confusing.
+- Optional output delay. This feature of the original library may be useful for some applications but can also have undesirable effect so I allow the user to decide whether to use it.
 
 
 <a id="installation"></a>
