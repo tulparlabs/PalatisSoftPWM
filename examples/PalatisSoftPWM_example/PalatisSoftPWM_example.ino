@@ -71,20 +71,20 @@ SOFTPWM_DEFINE_OBJECT(20);
 const unsigned int fadeDuration = 1000;  // (ms)The length of time for each channel to go from PWM value 0 to the highest level and back to 0 again. The maximum allowed value is 8388.
 
 void setup() {
-  SoftPWM.begin(60);  // begin with 60hz PWM frequency
+  PalatisSoftPWM.begin(60);  // begin with 60hz PWM frequency
 }
 
 void loop() {
-  for (byte channel = 0; channel < SoftPWM.size(); channel++) {  // cycle through the channels
+  for (byte channel = 0; channel < PalatisSoftPWM.size(); channel++) {  // cycle through the channels
     // fade from PWM value 0 to the highest value
-    for (byte value = 0; value < SoftPWM.PWMlevels() - 1; value++) {
-      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
-      SoftPWM.set(channel, value);
+    for (byte value = 0; value < PalatisSoftPWM.PWMlevels() - 1; value++) {
+      delayMicroseconds(fadeDuration * 1000UL / PalatisSoftPWM.PWMlevels() / 2);
+      PalatisSoftPWM.set(channel, value);
     }
     // fade back to PWM value 0
-    for (int value = SoftPWM.PWMlevels() - 1; value >= 0; value--) {
-      delayMicroseconds(fadeDuration * 1000UL / SoftPWM.PWMlevels() / 2);
-      SoftPWM.set(channel, value);
+    for (int value = PalatisSoftPWM.PWMlevels() - 1; value >= 0; value--) {
+      delayMicroseconds(fadeDuration * 1000UL / PalatisSoftPWM.PWMlevels() / 2);
+      PalatisSoftPWM.set(channel, value);
     }
   }
 }

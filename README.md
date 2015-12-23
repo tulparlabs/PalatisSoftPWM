@@ -42,35 +42,35 @@ See **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example** for demonstrat
 
 `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS)` - Add this if you want to use the SoftPWM object outside where it's defined. See `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` for description of parameters.
 
-`SoftPWM.begin(hertz)` - Initialize softPWM. All pins configured with `SOFTPWM_DEFINE_CHANNEL_INVERT()` will momentarily go LOW when this function is called.
+`PalatisSoftPWM.begin(hertz)` - Initialize PalatisSoftPWM. All pins configured with `SOFTPWM_DEFINE_CHANNEL_INVERT()` will momentarily go LOW when this function is called.
 - Parameter: **hertz** - The PWM frequency. Setting the value too high will cause incorrect operation. Too low will cause a visible flicker.
   - Type: long
 
-`SoftPWM.printInterruptLoad()` - Prints diagnostic information to the serial monitor. This can be used to find the optimal PWM frequency by setting different PWM frequency values in begin() and then checking the resulting interrupt load. Calling this function will momentarily turn off the PWM on all channels.
+`PalatisSoftPWM.printInterruptLoad()` - Prints diagnostic information to the serial monitor. This can be used to find the optimal PWM frequency by setting different PWM frequency values in begin() and then checking the resulting interrupt load. Calling this function will momentarily turn off the PWM on all channels.
 
-`SoftPWM.set(channel_idx, value)` - Set the PWM level of the given channel.
+`PalatisSoftPWM.set(channel_idx, value)` - Set the PWM level of the given channel.
 - Parameter: **channel_idx** - The channel to set.
   - Type: int
 - Parameter: **value** - The PWM level to set.
   - Type: byte
 
-`SoftPWM.size()`
+`PalatisSoftPWM.size()`
 - Returns: Number of channels defined.
   - Type: size_t
 
-`SoftPWM.PWMlevels()`
+`PalatisSoftPWM.PWMlevels()`
 - Returns: The number of PWM levels.
   - Type: unsigned int
 
-`SoftPWM.allOff()` - Set the PWM value of all channels to 0.
+`PalatisSoftPWM.allOff()` - Set the PWM value of all channels to 0.
 
 
 <a id="troubleshooting"></a>
 #### Troubleshooting
 - LEDs have a visible flicker, especially noticeable when the LED is moving relative to the viewer.
-  - The PWM frequency set in `SoftPWM.begin()` is too low. Use `SoftPWM.printInterruptLoad()` to determine the optimum PWM frequency. You may be able to achieve a higher PWM frequency by setting less PWM levels with `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` or `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS()`.
+  - The PWM frequency set in `PalatisSoftPWM.begin()` is too low. Use `PalatisSoftPWM.printInterruptLoad()` to determine the optimum PWM frequency. You may be able to achieve a higher PWM frequency by setting less PWM levels with `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` or `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS()`.
 - Erratic PWM operation
-  - The interrupt load is too high. Use `SoftPWM.printInterruptLoad()` to determine the interrupt load. You can decrease the interrupt load by setting less PWM levels with `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` or `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS()` or setting the PWM frequency lower in `SoftPWM.begin()`.
+  - The interrupt load is too high. Use `PalatisSoftPWM.printInterruptLoad()` to determine the interrupt load. You can decrease the interrupt load by setting less PWM levels with `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` or `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS()` or setting the PWM frequency lower in `PalatisSoftPWM.begin()`.
 - LED brightness changes between low brightness PWM values are larger than at brighter PWM values.
   - This is caused by the way LEDs work and is not caused by a problem with the library. If possible, use more PWM levels or never allow the LED to get dimmer than the level below which the difference between PWM levels is too distinct.
 

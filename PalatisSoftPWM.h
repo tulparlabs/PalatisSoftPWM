@@ -41,17 +41,17 @@
 
 #if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 #define SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
-  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM; \
+  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> PalatisSoftPWM; \
   ISR(TIM1_COMPA_vect) { \
     interrupts(); \
-    SoftPWM.update(); \
+    PalatisSoftPWM.update(); \
   }
 #else  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 #define SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
-  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM; \
+  CSoftPWM<CHANNEL_CNT, PWM_LEVELS> PalatisSoftPWM; \
   ISR(TIMER1_COMPA_vect) { \
     interrupts(); \
-    SoftPWM.update(); \
+    PalatisSoftPWM.update(); \
   }
 #endif  //defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 
@@ -59,7 +59,7 @@
   SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, 0)
 
 #define SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS) \
-  extern CSoftPWM<CHANNEL_CNT, PWM_LEVELS> SoftPWM;
+  extern CSoftPWM<CHANNEL_CNT, PWM_LEVELS> PalatisSoftPWM;
 
 #define SOFTPWM_DEFINE_EXTERN_OBJECT(CHANNEL_CNT) \
   SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, 0)
@@ -183,7 +183,7 @@ class CSoftPWM {
       const double load = static_cast<double>(time1 - time2) / time1;
       const double interrupt_frequency = static_cast<double>(F_CPU) / (OCR1A + 1);
 
-      Serial.println(F("SoftPWM::printInterruptLoad():"));
+      Serial.println(F("PalatisSoftPWM::printInterruptLoad():"));
       Serial.print(F("  Load of interrupt: "));
       Serial.println(load, 10);
       Serial.print(F("  Clock cycles per interrupt: "));
