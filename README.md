@@ -59,6 +59,12 @@ See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
   - Type: long
 
 `PalatisSoftPWM.printInterruptLoad()` - Prints diagnostic information to the serial monitor. This can be used to find the optimal PWM frequency by setting different PWM frequency values in `PalatisSoftPWM.begin()` and then checking the resulting interrupt load. Calling this function will momentarily turn off the PWM on all channels.
+- Output:
+  - **Load of interrupt** - The portion of the time that the microcontroller spends doing soft PWM. A value of 1 would indicate that 100% of the time is spent in the PalatisSoftPWM ISR, meaning that no clock cycles are left to execute any other code.
+  - **Clock cycles per interrupt** - The number of clock cycles required to run the PalatisSoftPWM ISR.
+  - **Interrupt frequency** - The frequency at which the PalatisSoftPWM ISR is triggered.
+  - **PWM frequency** - Actual PWM frequency. This may vary slightly from the value set in `PalatisSoftPWM.begin()`.
+  - **PWM levels** - Value set in `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()`/`SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS)` or 256 if `SOFTPWM_DEFINE_OBJECT()`/`SOFTPWM_DEFINE_EXTERN_OBJECT()` was used.
 
 `PalatisSoftPWM.set(channel_idx, value)` - Set the PWM level of the given channel.
 - Parameter: **channel_idx** - The channel to set.
