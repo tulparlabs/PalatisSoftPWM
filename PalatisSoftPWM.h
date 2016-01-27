@@ -609,7 +609,7 @@
 #define SOFTPWM_DEFINE_PINA7_CHANNEL(CHANNEL) SOFTPWM_DEFINE_PIN31_CHANNEL(CHANNEL)
 #define SOFTPWM_DEFINE_PINA7_CHANNEL_INVERT(CHANNEL) SOFTPWM_DEFINE_PIN31_CHANNEL_INVERT(CHANNEL)
 
-// calunium:stripboard variant - https://github.com/stevemarple/Calunium/blob/master/software/calunium/variants/stripboard/pins_arduino.h
+// calunium:stripboard variant - https://github.com/stevemarple/Calunium/blob/master/software/arduino-1.6/calunium/avr/variants/stripboard/pins_arduino.h
 #elif defined CALUNIUM_VARIANT  //defined(ARDUINO_1284P_AVR_DEVELOPERS) || defined(ARDUINO_AVR_SANGUINO)
 #define stripboard true
 #if CALUNIUM_VARIANT==true
@@ -694,7 +694,7 @@
 #define SOFTPWM_DEFINE_PINA7_CHANNEL(CHANNEL) SOFTPWM_DEFINE_PIN31_CHANNEL(CHANNEL)
 #define SOFTPWM_DEFINE_PINA7_CHANNEL_INVERT(CHANNEL) SOFTPWM_DEFINE_PIN31_CHANNEL_INVERT(CHANNEL)
 
-// calunium:pcb/Microduino:plus variant - https://github.com/stevemarple/Calunium/blob/master/software/calunium/variants/pcb/pins_arduino.h
+// calunium:pcb/Microduino:plus variant - https://github.com/stevemarple/Calunium/blob/master/software/arduino-1.6/calunium/avr/variants/pcb/pins_arduino.h
 #else  //CALUNIUM_VARIANT==true
 #define SOFTPWM_DEFINE_PIN0_CHANNEL(CHANNEL) SOFTPWM_DEFINE_CHANNEL(CHANNEL, DDRD, PORTD, PORTD0)
 #define SOFTPWM_DEFINE_PIN0_CHANNEL_INVERT(CHANNEL) SOFTPWM_DEFINE_CHANNEL_INVERT(CHANNEL, DDRD, PORTD, PORTD0)
