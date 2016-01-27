@@ -779,8 +779,8 @@
 #endif  //CALUNIUM_VARIANT==true
 #undef stripboard
 
-//freetronics:goldilocks variant - https://feilipu.files.wordpress.com/2013/03/arduino_goldilocks_20150101.zip
-#elif defined(ARDUINO_AVR_GOLDILOCKS_20) || defined(ARDUINO_AVR_GOLDILOCKS_22)  //defined(ARDUINO_1284P_AVR_DEVELOPERS) || defined(ARDUINO_AVR_SANGUINO)
+//seeed:goldilocks variant - https://github.com/feilipu/Arduino_Goldilocks_Variant/blob/master/hardware/seeed/avr/variants/goldilocks/pins_arduino.h - Goldilocks v1.1 and Goldilocks Analogue
+#elif defined(ARDUINO_AVR_GOLDILOCKS_20) || defined(ARDUINO_AVR_GOLDILOCKS_22) || defined(ARDUINO_AVR_GOLDILOCKS_ANALOGUE)  //defined(ARDUINO_1284P_AVR_DEVELOPERS) || defined(ARDUINO_AVR_SANGUINO)
 #define SOFTPWM_DEFINE_PIN0_CHANNEL(CHANNEL) SOFTPWM_DEFINE_CHANNEL(CHANNEL, DDRD, PORTD, PORTD0)
 #define SOFTPWM_DEFINE_PIN0_CHANNEL_INVERT(CHANNEL) SOFTPWM_DEFINE_CHANNEL_INVERT(CHANNEL, DDRD, PORTD, PORTD0)
 #define SOFTPWM_DEFINE_PIN1_CHANNEL(CHANNEL) SOFTPWM_DEFINE_CHANNEL(CHANNEL, DDRD, PORTD, PORTD1)
