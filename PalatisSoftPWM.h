@@ -1114,6 +1114,7 @@
 
 // mighty-1284p:standard/sumotoy:1284p/sodaq:mbili/sodaq:ndogo/sodaq:tatu/MightyCore:standard1284 variant - https://github.com/JChristensen/mighty-1284p/blob/v1.6.3/avr/variants/standard/pins_arduino.h
 #else  //defined(ARDUINO_1284P_AVR_DEVELOPERS) || defined(ARDUINO_AVR_SANGUINO)
+#warning Assuming standard pinout(mighty-1284p:standard/sumotoy:1284p/sodaq:mbili/sodaq:ndogo/sodaq:tatu/MightyCore variant) for SOFTPWM_DEFINE_PINn_CHANNEL() use.
 #define SOFTPWM_DEFINE_PIN0_CHANNEL(CHANNEL) SOFTPWM_DEFINE_CHANNEL(CHANNEL, DDRB, PORTB, PORTB0)
 #define SOFTPWM_DEFINE_PIN0_CHANNEL_INVERT(CHANNEL) SOFTPWM_DEFINE_CHANNEL_INVERT(CHANNEL, DDRB, PORTB, PORTB0)
 #define SOFTPWM_DEFINE_PIN1_CHANNEL(CHANNEL) SOFTPWM_DEFINE_CHANNEL(CHANNEL, DDRB, PORTB, PORTB1)
