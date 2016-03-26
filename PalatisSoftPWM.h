@@ -4,7 +4,7 @@
 
 #include <Arduino.h>
 
-#ifndef ARDUINO_ARCH_AVR
+#ifndef __AVR__
 #error Architecture not supported. PalatisSoftPWM currently only supports AVR microcontrollers.
 #endif
 
