@@ -1275,7 +1275,7 @@ struct pinModeStaticExpander {
 
 template <>
 struct pinModeStaticExpander < -1 > {
-  void operator() (const uint8_t mode) const {}
+  void operator() (const uint8_t) const {}
 };
 
 template <unsigned int num_channels, unsigned int num_PWM_levels>
