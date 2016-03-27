@@ -54,7 +54,7 @@ See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
 
 `SOFTPWM_DEFINE_EXTERN_OBJECT_WITH_PWM_LEVELS(CHANNEL_CNT, PWM_LEVELS)` - Add this if you want to use the SoftPWM object outside where it's defined. See `SOFTPWM_DEFINE_OBJECT_WITH_PWM_LEVELS()` for description of parameters.
 
-`PalatisSoftPWM.begin(hertz)` - Initialize PalatisSoftPWM. All pins configured with `SOFTPWM_DEFINE_CHANNEL_INVERT()` will momentarily go LOW when this function is called.
+`PalatisSoftPWM.begin(hertz)` - Initialize PalatisSoftPWM.
 - Parameter: **hertz** - The PWM frequency. Setting the value too high will cause incorrect operation, too low will cause a visible flicker.
   - Type: long
 

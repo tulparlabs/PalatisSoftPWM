@@ -1282,6 +1282,7 @@ template <unsigned int num_channels, unsigned int num_PWM_levels>
 class CSoftPWM {
   public:
     void begin(const unsigned long hertz) {
+      allOff();  //this prevents inverted channels from momentarily going LOW
       asm volatile ("/************ pinModeStaticExpander begin ************/");
       const uint8_t oldSREG = SREG;
       noInterrupts();
