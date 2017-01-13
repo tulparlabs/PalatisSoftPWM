@@ -94,3 +94,7 @@ See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
 - `error: expected constructor, destructor, or type conversion before '(' token` compile error  when using `SOFTPWM_DEFINE_PINn_CHANNEL()` or `SOFTPWM_DEFINE_PINn_CHANNEL_INVERT()`.
   - The Arduino pins for the microcontroller model you're using are not defined. Use `SOFTPWM_DEFINE_CHANNEL()` or `SOFTPWM_DEFINE_CHANNEL_INVERT()` instead.
 
+
+#### Contributing
+Pull requests or issue reports are welcome! Please see the [contribution rules](https://github.com/per1234/PalatisSoftPWM/blob/master/CONTRIBUTING.md) for instructions.
+
