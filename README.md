@@ -32,7 +32,7 @@ See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
 **`SOFTPWM_DEFINE_PINn_CHANNEL(CHANNEL)`** - Configure Arduino pin n for software PWM use. This supports boards that use ATmega328P, ATmega168, ATmega32U4, ATmega2560, ATtiny85, ATmega1284P and related microcontrollers. For other microcontrollers use `SOFTPWM_DEFINE_CHANNEL()` instead. With ATmega1284P, etc. PalatisSoftPWM will default to the [Mighty 1284P standard variant](https://github.com/JChristensen/mighty-1284p/blob/v1.6.3/avr/variants/standard/pins_arduino.h) if the specific pinout can't be automatically determined.
 - Parameter: **CHANNEL** - The channel number is used as an ID for the pin.
 
-**`SOFTPWM_DEFINE_PINn_CHANNEL_INVERT(CHANNEL)`** - Depending on your application you may prefer to invert the output of the channel. This will cause PWM level 0 to produce a 100% duty cycle. 
+**`SOFTPWM_DEFINE_PINn_CHANNEL_INVERT(CHANNEL)`** - Depending on your application you may prefer to invert the output of the channel. This will cause PWM level 0 to produce a 100% duty cycle.
 - Parameter: **CHANNEL** - The channel number is used as an ID for the pin.
 
 **`SOFTPWM_DEFINE_CHANNEL(CHANNEL, PMODE, PORT, BIT)`** - Configure a pin for software PWM use. Consult the datasheet for your microcontroller for the appropriate `PORT` and `BIT` values for the physical pin. This information is shown in the pinout diagram, for example: [ATmega328P datasheet](http://www.atmel.com/Images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Summary.pdf) **Figure 1-1** found on page 3. If you want to determine the Arduino pin assigned to the physical pin http://www.pighixxx.com/test/pinoutspg/boards/ provides this information for the most popular Arduino boards or you can look at the pins_arduino.h file in the **variant** folder used by your board. Usage is demonstrated in **File > Examples > PalatisSoftPWM > PalatisSoftPWM_example2**.
@@ -97,4 +97,3 @@ See **File > Examples > PalatisSoftPWM** for demonstration of library usage.
 
 #### Contributing
 Pull requests or issue reports are welcome! Please see the [contribution rules](https://github.com/per1234/PalatisSoftPWM/blob/master/CONTRIBUTING.md) for instructions.
-
